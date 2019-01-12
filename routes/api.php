@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +12,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('/register', 'Auth\AuthAPIController@register');
 
 Route::post('/login', 'Auth\AuthAPIController@login');
 
-// Route::get();
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::get('/profile', function ($id) {
+        return $request->user();
+    });
+    Route::post('/buku/store', 'BukuController@store');
+});
+Route::resource('buku', 'BukuController')->except('store');
