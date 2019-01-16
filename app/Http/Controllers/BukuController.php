@@ -124,7 +124,7 @@ class BukuController extends Controller
     public function destroy(Buku $buku)
     {
         $buku->delete();
-        $message = 'Berhasil Mengahpus Data';
+        $message = 'Berhasil Menghapus Data';
 
         return response()->json(['message' => $message], 200);
     }
